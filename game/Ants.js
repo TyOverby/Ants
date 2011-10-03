@@ -4,29 +4,29 @@ var game;
 function Ants(canvasID){
 	pane = new Pane(canvasID);
 
-	var ants = [];
+	var gameObjects = [];
 
 	this.startup = function(){
-		ants.push(new Ant(new Vector2f(200,200)));
+		gameObjects.push(new Ant(new GameMath.Vector2f(200,200),1,1000,10));
 	}
 
 	this.update = function(){
-		var antsLength = ants.length;
-		for (var i = 0; i< antsLength; i++){
-			ants[i].update();
+		var objectLength = gameObjects.length;
+		for (var i = 0; i< objectLength; i++){
+			gameObjects[i].update(gameObjects);
 		}
 	}
 
 	this.render = function(){
-		pane.getContext().fillStyle = "rgba(255,255,255,0.06)";
+		pane.getContext().fillStyle = "rgba(255,255,255,0.5)";
 		pane.getContext().fillRect(0,0,pane.getWidth(),pane.getHeight());
 
 		pane.getContext().fillStyle = "black";
 
 		//render all the ants
-		var antsLength = ants.length;
-		for (var i = 0; i< antsLength; i++){
-			ants[i].draw();
+		var objectLength = gameObjects.length;
+		for (var i = 0; i< objectLength; i++){
+			gameObjects[i].draw();
 		}
 	}
 
