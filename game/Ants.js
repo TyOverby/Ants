@@ -1,4 +1,5 @@
 var pane;
+var game;
 
 function Ants(canvasID){
 	pane = new Pane(canvasID);
@@ -6,14 +7,27 @@ function Ants(canvasID){
 	var ants = [];
 
 	this.startup = function(){
-		
+		ants.push(new Ant(new Vector2f(200,200)));
 	}
 
 	this.update = function(){
+		var antsLength = ants.length;
+		for (var i = 0; i< antsLength; i++){
+			ants[i].update();
+		}
 	}
 
 	this.render = function(){
-		pane.drawRectFill(0,0,20,20,"green");
+		pane.getContext().fillStyle = "rgba(255,255,255,0.06)";
+		pane.getContext().fillRect(0,0,pane.getWidth(),pane.getHeight());
+
+		pane.getContext().fillStyle = "black";
+
+		//render all the ants
+		var antsLength = ants.length;
+		for (var i = 0; i< antsLength; i++){
+			ants[i].draw();
+		}
 	}
 
 	this.isRunning = function(){
@@ -22,7 +36,9 @@ function Ants(canvasID){
 }
 
 function start(){
-	myGame = new Ants("canvas");
-	game = new Engine(myGame);
+	if(game === undefined){
+		var ants = new Ants("canvas");
+		game = new Engine(ants);
+	}
 	game.run();
 }
